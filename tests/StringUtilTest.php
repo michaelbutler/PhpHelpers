@@ -77,6 +77,7 @@ class StringUtilTest extends TestCase
             ["Really Long String haha wow", "really-long", [
                 'limit' => 11,
             ]],
+            ["HÉllo wőrld, fűn!", "hello-world-fun", []],
         ];
     }
 
