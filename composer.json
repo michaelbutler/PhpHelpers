@@ -1,0 +1,23 @@
+{
+    "name": "butler/php-helpers",
+    "description": "Collection of commonly helpful PHP classes",
+    "type": "library",
+    "license": "LGPL-3.0-only",
+    "authors": [
+        {
+            "name": "Michael Butler",
+            "email": "michael@butlerpc.net"
+        }
+    ],
+    "require": {
+        "php": ">=7.3"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "Butler\\PhpHelpers\\": "src/"
+        }
+    }
+}
