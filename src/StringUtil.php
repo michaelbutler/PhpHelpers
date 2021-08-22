@@ -4,6 +4,8 @@ namespace Butler\PhpHelpers;
 
 class StringUtil
 {
+    public const AMBIGUOUS_CHARACTERS_REGEX = '~[+/=oO0iIlL1]~';
+
     /**
      * Checks if a string is valid typical UTF-8. Treats things like NUL bytes as invalid, even if it might be allowed
      * in UTF-8 standard. Use for general user generated content to keep things sane.
@@ -60,7 +62,7 @@ class StringUtil
         $str = '';
         do {
             $rand = base64_encode(random_bytes($length * 3));
-            $rand = preg_replace('~[+/=oO0iIlL1]~', '', $rand);
+            $rand = preg_replace(self::AMBIGUOUS_CHARACTERS_REGEX, '', $rand);
             $str .= $rand;
         } while (strlen($str) < $length);
 
