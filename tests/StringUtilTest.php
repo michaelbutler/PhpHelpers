@@ -112,4 +112,34 @@ class StringUtilTest extends TestCase
     {
         $this->assertSame($expectedResult, StringUtil::toUtf8($inputString));
     }
+
+    public function providerForIsValidEmail(): array
+    {
+        return [
+            ["🧟 Zombie 🧟 Zombie", false],
+            ["null char \0 works\n", false],
+            ["HÉllo wőrld, fűn!", false],
+            ["invalid char " . rawurldecode('%8F') . '@example.com', false],
+            [rawurldecode('%8F') . "=invalid char=@example.com", false],
+            ["_test_@example@.com", false],
+            ["_tes%&*t_@example.n", false],
+            ["white space here@test.net", false],
+
+            ["test@example.com", true],
+            ["_test_@example.com", true],
+            ["_test_@example.com.x", true],
+            ["_test_@example.com.", true],
+            ["_tes%&*t_@example.com", true],
+        ];
+    }
+
+    /**
+     * @dataProvider providerForIsValidEmail
+     * @param mixed $inputString
+     * @param bool $expectedResult
+     */
+    public function testIsValidEmail($inputString, bool $expectedResult): void
+    {
+        $this->assertSame($expectedResult, StringUtil::isValidEmail($inputString));
+    }
 }

@@ -207,4 +207,18 @@ class StringUtil
             ini_set('mbstring.substitute_character', $orig);
         }
     }
+
+    /**
+     * Determine if an email address is valid, using a fairly loose check. Be sure to trim whitespace prior to calling.
+     * Basically checks for one @ symbol, then one dot symbol, and at least 2 chars after the dot.
+     * @param string $email
+     * @return bool
+     */
+    public static function isValidEmail(string $email): bool
+    {
+        if (!self::isTypicalUtf8($email)) {
+            return false;
+        }
+        return (bool) preg_match('/^[^\s@]+@[^\s@.]+\.[^\s@]{2,}$/', $email);
+    }
 }
