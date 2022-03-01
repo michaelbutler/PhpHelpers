@@ -91,4 +91,25 @@ class StringUtilTest extends TestCase
     {
         $this->assertSame($expectedResult, StringUtil::slugify($inputString, $options));
     }
+
+    public function providerForToUtf8(): array
+    {
+        return [
+            ["🧟 Zombie 🧟 Zombie", "🧟 Zombie 🧟 Zombie"],
+            ["null char \0 works\n", "null char \0 works\n"],
+            ["HÉllo wőrld, fűn!", "HÉllo wőrld, fűn!"],
+            ["invalid char " . rawurldecode('%8F'), "invalid char "],
+            [rawurldecode('%8F') . "=invalid char=", "=invalid char="],
+        ];
+    }
+
+    /**
+     * @dataProvider providerForToUtf8
+     * @param $inputString
+     * @param $expectedResult
+     */
+    public function testToUtf8($inputString, $expectedResult): void
+    {
+        $this->assertSame($expectedResult, StringUtil::toUtf8($inputString));
+    }
 }

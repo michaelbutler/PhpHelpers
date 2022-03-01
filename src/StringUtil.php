@@ -188,4 +188,23 @@ class StringUtil
 
         return $options['lowercase'] ? mb_strtolower($str, 'UTF-8') : $str;
     }
+
+    /**
+     * Convert string to proper UTF-8 for safe keeping. Possibly removes chars to make it valid.
+     * Leaves weird ASCII chars intact!
+     * @param string $str
+     * @return string
+     */
+    public static function toUtf8(string $str): string
+    {
+        if (self::isRawUtf8($str)) {
+            return $str;
+        }
+        $orig = ini_set('mbstring.substitute_character', "none");
+        try {
+            return mb_convert_encoding($str, 'UTF-8', 'UTF-8');
+        } finally {
+            ini_set('mbstring.substitute_character', $orig);
+        }
+    }
 }
