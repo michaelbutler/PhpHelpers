@@ -29,7 +29,7 @@ class NumberUtil
         return (float) $str;
     }
 
-    public function toInt($str): int
+    public static function toInt($str): int
     {
         if (!self::isNumber($str)) {
             throw new \InvalidArgumentException('Cannot convert to integer');
