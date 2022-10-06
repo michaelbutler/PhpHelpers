@@ -81,4 +81,16 @@ class NumberUtilTest extends TestCase
     {
         $this->assertSame($expectedResult, NumberUtil::toFloat($inputData));
     }
+
+    public function testExceptionOnInvalidToInt(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        NumberUtil::toInt([]);
+    }
+
+    public function testExceptionOnInvalidToFloat(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        NumberUtil::toFloat([]);
+    }
 }
